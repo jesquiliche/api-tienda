@@ -35,13 +35,10 @@ router.get('/articulos',async (req,res)=>
     if (isNaN(num_row)) num_row=0;
     let pag=parseInt(req.query.pag);
     if (isNaN(pag)) pag=20;
-    console.log("entro")
     const sql='SELECT * FROM vfarticulos LIMIT ?,?';
     await mysqlconnet.query(sql,[num_row,pag],
     (err,rows,fields)=>
     {
-        
-        console.log(rows);
         if(err) console.log(err);
         else res.status(200).json(rows);
     })
@@ -54,7 +51,6 @@ router.get('/articulosPorCategoria/:id',async (req,res)=>
     await mysqlconnet.query('SELECT * FROM vfarticulos WHERE CATEGORIA=?',[id],
     (err,rows,fields)=>
     {
-    
         if(rows)
         if(err) console.log(err);
         else res.status(200).json(rows);
@@ -68,10 +64,9 @@ router.get('/articulos/:id',async (req,res)=>
     await mysqlconnet.query('SELECT * FROM vfarticulos WHERE idArticulo=?',[id],
     (err,rows,fields)=>
     {
-    
         if(rows)
-        if(err) console.log(err);
-        else res.status(200).json(rows[0]);
+            if(err) console.log(err);
+            else res.status(200).json(rows[0]);
     })
   
 });
@@ -85,14 +80,12 @@ router.delete('/articulos/:id',async (req,res)=>
         try {
         
             if(err) console.log(err);
-           // else res.status(200).json("Registro borrado sadisfactoriamente");
-           // res.status(204).json("Registro borrado sadisfactoriamente"); 
+                res.status(204).json("Registro borrado sadisfactoriamente"); 
             
         } catch (error) {
             res.status(500).send(error)
         }
-       
-        
+             
     })
   
 });
@@ -111,7 +104,6 @@ router.post('/articulos/',(req,res)=>
     sql+="FOTO) VALUES(";
     sql+="?,?,?,?,?,?,?,?)";
 
-    console.log(req.body.NOMBRE)
     const {NOMBRE,DESCRIPCION,CATEGORIA,TIPOIVA,PRECIO,SUBCATEGORIA,IDMARCA,FOTO}=req.body;
     mysqlconnet.query(sql, 
         [NOMBRE,DESCRIPCION,CATEGORIA,TIPOIVA,PRECIO,SUBCATEGORIA,IDMARCA,FOTO],
@@ -120,16 +112,11 @@ router.post('/articulos/',(req,res)=>
         {
             console.log(error)
             res.send("error");
-          //  throw  error;
         }
         else {
             res.status(201).send("Articulos añadido con sadisfactoriamente");
-
         }
-        
-        
- 
-        
+            
     });
 
 });

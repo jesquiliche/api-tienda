@@ -2,10 +2,9 @@ const express=require('express');
 const app=express();
 const bodyParser = require('body-parser');
 
-//app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
 
-//app.use(bodyParser.urlencoded({ extended: false }));
 
 const cors = require('cors');
 const { get } = require('./routes/articulosController');
@@ -48,6 +47,5 @@ app.use((req, res, next) => {
 
 app.listen(app.get("port"),()=>{
     console.log("Server express on port "+app.get("port"));
-   // console.log(process.env.DB_HOST)
 });
 
